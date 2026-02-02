@@ -167,6 +167,7 @@ impl TerraFlow {
     }
 
     /// Export currently installed packages to a file
+    #[allow(dead_code)]
     pub fn export_installed(&self, output_path: &Path) -> std::io::Result<usize> {
         let installed = Self::get_installed_packages();
         let mut sorted: Vec<_> = installed.into_iter().collect();
@@ -179,6 +180,7 @@ impl TerraFlow {
     }
 
     /// Get the packages directory path
+    #[allow(dead_code)]
     pub fn packages_dir(&self) -> &Path {
         &self.packages_dir
     }

@@ -10,6 +10,7 @@ use serde::Deserialize;
 
 /// Pywal color scheme
 #[derive(Debug, Clone, Deserialize)]
+#[allow(dead_code)]
 pub struct PywalColors {
     pub wallpaper: Option<String>,
     pub special: SpecialColors,
@@ -17,6 +18,7 @@ pub struct PywalColors {
 }
 
 #[derive(Debug, Clone, Deserialize)]
+#[allow(dead_code)]
 pub struct SpecialColors {
     pub background: String,
     pub foreground: String,
@@ -24,6 +26,7 @@ pub struct SpecialColors {
 }
 
 #[derive(Debug, Clone, Deserialize)]
+#[allow(dead_code)]
 pub struct ColorPalette {
     pub color0: String,
     pub color1: String,
@@ -45,6 +48,7 @@ pub struct ColorPalette {
 
 /// Application theme derived from Pywal or defaults
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub struct Theme {
     pub bg: Color,
     pub fg: Color,

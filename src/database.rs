@@ -4,7 +4,7 @@
 //! Uses monolithic storage + lightweight index pointers for zero-CPU search.
 
 use std::fs::{self, File};
-use std::io::{BufRead, BufReader, BufWriter, Write};
+use std::io::{BufReader, BufWriter, Write};
 use std::path::PathBuf;
 use std::process::Command;
 use std::time::Instant;
@@ -282,6 +282,7 @@ impl PackageDatabase {
     }
 
     /// Check if empty
+    #[allow(dead_code)]
     pub fn is_empty(&self) -> bool {
         self.packages.is_empty()
     }
@@ -341,11 +342,13 @@ impl PackageDatabase {
     }
 
     /// Get arena reference for zero-copy access
+    #[allow(dead_code)]
     pub fn arena(&self) -> &str {
         &self.arena
     }
 
     /// Get packages slice
+    #[allow(dead_code)]
     pub fn packages(&self) -> &[PackageView] {
         &self.packages
     }

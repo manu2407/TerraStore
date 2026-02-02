@@ -11,6 +11,7 @@ use thiserror::Error;
 use crate::package::{Package, PackageInfo, PackageSource};
 
 #[derive(Error, Debug)]
+#[allow(dead_code)]
 pub enum RepoError {
     #[error("Failed to execute command: {0}")]
     CommandFailed(#[from] io::Error),
@@ -32,6 +33,7 @@ pub enum RepoError {
 }
 
 /// Trait defining the interface for package repositories
+#[allow(dead_code)]
 pub trait Repository {
     /// Get the display name of this repository
     fn name(&self) -> &str;
@@ -286,6 +288,7 @@ impl Repository for Paru {
 // ============================================================================
 
 /// Parse the output of `pacman -Ss` or `paru -Ss`
+#[allow(dead_code)]
 fn parse_pacman_search_output(output: &str, source: PackageSource) -> Vec<Package> {
     let mut packages = Vec::new();
     let mut lines = output.lines().peekable();
@@ -344,6 +347,7 @@ impl RepoManager {
     }
 
     /// Get a list of all available packages from both sources
+    #[allow(dead_code)]
     pub fn list_all(&self) -> Result<Vec<String>, RepoError> {
         let mut all = self.pacman.list_packages()?;
 
@@ -357,6 +361,7 @@ impl RepoManager {
     }
 
     /// Smart search: Try official first, fall back to AUR
+    #[allow(dead_code)]
     pub fn smart_search(&self, query: &str) -> Result<Vec<Package>, RepoError> {
         let mut results = self.pacman.search(query)?;
 

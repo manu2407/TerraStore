@@ -158,11 +158,13 @@ impl History {
     }
 
     /// Get last installation
+    #[allow(dead_code)]
     pub fn last(&self) -> Option<&InstallRecord> {
         self.records.first()
     }
 
     /// Clear all history
+    #[allow(dead_code)]
     pub fn clear(&mut self) {
         self.records.clear();
         let _ = self.save();

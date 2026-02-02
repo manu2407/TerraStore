@@ -264,6 +264,7 @@ impl FlatpakDatabase {
     }
 
     /// Install a Flatpak
+    #[allow(dead_code)]
     pub fn install(&self, app_id: &str) -> Result<(), String> {
         let status = Command::new("flatpak")
             .args(["install", "-y", "flathub", app_id])
@@ -278,6 +279,7 @@ impl FlatpakDatabase {
     }
 
     /// Unload to free memory
+    #[allow(dead_code)]
     pub fn unload(&mut self) {
         self.apps = None;
         self.stats = FlatpakStats::default();

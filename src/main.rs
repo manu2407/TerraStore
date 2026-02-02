@@ -13,7 +13,7 @@ mod terraflow;
 mod theme;
 mod ui;
 
-use std::io::{self, Write};
+use std::io;
 use std::process::ExitCode;
 
 use auth::AuthManager;

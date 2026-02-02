@@ -26,6 +26,7 @@ impl std::fmt::Display for PackageSource {
 
 /// A minimal package representation for list views
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct Package {
     pub name: String,
     pub version: String,
@@ -34,6 +35,7 @@ pub struct Package {
 }
 
 impl Package {
+    #[allow(dead_code)]
     pub fn new(name: impl Into<String>, source: PackageSource) -> Self {
         Self {
             name: name.into(),
@@ -44,6 +46,7 @@ impl Package {
     }
 
     /// Create a package with full metadata
+    #[allow(dead_code)]
     pub fn with_details(
         name: impl Into<String>,
         version: impl Into<String>,
@@ -61,6 +64,7 @@ impl Package {
 
 /// Extended package information for the detail view
 #[derive(Debug, Clone, Default)]
+#[allow(dead_code)]
 pub struct PackageInfo {
     pub name: String,
     pub version: String,
@@ -83,6 +87,7 @@ pub struct PackageInfo {
 
 impl PackageInfo {
     /// Parse package info from `pacman -Si` or `paru -Si` output
+    #[allow(dead_code)]
     pub fn from_pacman_output(output: &str, source: PackageSource) -> Option<Self> {
         let mut info = PackageInfo {
             source,
@@ -140,6 +145,7 @@ impl PackageInfo {
     }
 
     /// Format the info for display in the preview pane
+    #[allow(dead_code)]
     pub fn to_display_string(&self) -> String {
         let mut output = String::new();
 
@@ -182,6 +188,7 @@ impl PackageInfo {
 }
 
 /// Parse size string like "1.5 MiB" to bytes
+#[allow(dead_code)]
 fn parse_size(s: &str) -> u64 {
     let parts: Vec<&str> = s.split_whitespace().collect();
     if parts.len() != 2 {
@@ -203,6 +210,7 @@ fn parse_size(s: &str) -> u64 {
 }
 
 /// Format bytes to human-readable size
+#[allow(dead_code)]
 fn format_size(bytes: u64) -> String {
     const KB: u64 = 1024;
     const MB: u64 = KB * 1024;

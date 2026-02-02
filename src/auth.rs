@@ -24,6 +24,7 @@ pub enum AuthError {
     ProcessError(#[from] io::Error),
 
     #[error("Sudo not available on this system")]
+    #[allow(dead_code)]
     SudoNotFound,
 }
 
