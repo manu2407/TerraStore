@@ -18,9 +18,9 @@ That idea took time to mature.
 
 The first version was written in **plain shell (sh)**. It worked, but it was rough.
 
-Later, I rewrote it in **Lua**, aiming for better structure and extensibility. While Lua gave me flexibility, that version turned out to be overkill for what I needed at the time. I eventually moved back to shell and stayed there for a long stretch, refining the system steadily until around version 2.5.
+Later, I rewrote it in **Lua**, aiming for better structure and extensibility. While Lua gave me flexibility, that version turned out to be overkill for what I needed at the time. I eventually moved back to shell and stayed there for a long stretch, refining the system steadily until around version 0.2.5.
 
-At **version 2.7**, I made a deliberate decision to rewrite the core in **Rust**. The early Rust versions (2.7 → 2.9) were honestly not great—messy, slower than shell, and poorly optimized. At one point, I seriously considered abandoning Rust altogether and returning to shell.
+At **version 0.2.7**, I made a deliberate decision to rewrite the core in **Rust**. The early Rust versions (0.2.7 → 0.2.9) were honestly not great—messy, slower than shell, and poorly optimized. At one point, I seriously considered abandoning Rust altogether and returning to shell.
 
 Instead, I paused and realized something important: **this wasn't Rust's fault—it was my code.**
 

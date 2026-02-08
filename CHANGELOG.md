@@ -8,7 +8,7 @@ All notable changes to Terra Store will be documented in this file.
 
 This marks the **first standalone release** of TerraStore—a fresh start after being separated from TerraFlow-Dotfiles.
 
-While the internal version history reached 2.9 during development inside dotfiles, this release represents a new identity: TerraStore is now an independent, first-class project.
+While the internal version history reached 0.2.9 during development inside dotfiles, this release represents a new identity: TerraStore is now an independent, first-class project.
 
 ### What's New in 1.0.0
 
@@ -35,10 +35,10 @@ The journey before independence:
 
 | Version | Stack | Notes |
 |---------|-------|-------|
-| 0.x | Shell (sh) | First implementation, rough but functional |
-| 1.x | Lua | Over-engineered, abandoned |
-| 2.0-2.5 | Shell | Refined, stable, long-running |
-| 2.7-2.9 | Rust | Learning phase, multiple rewrites |
-| 3.0 | Rust | "Metamorphosis" - finally faster than shell |
+| 0.0.x | Shell (sh) | First implementation, rough but functional |
+| 0.1.x | Lua | Over-engineered, abandoned |
+| 0.2.0-0.2.5 | Shell | Refined, stable, long-running |
+| 0.2.7-0.2.9 | Rust | Learning phase, multiple rewrites |
+| 0.3.0 | Rust | "Metamorphosis" - finally faster than shell |
 
-Version 3.0 inside dotfiles became 1.0.0 as standalone—a symbolic fresh start.
+Version 0.3.0 inside dotfiles became 1.0.0 as standalone—a symbolic fresh start.
