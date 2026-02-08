@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Zero-Stress Indexing Engine
+//! Terra Store v1.0 - Zero-Stress Indexing Engine
 //!
 //! Arena-based memory architecture for instant package search.
 //! Uses monolithic storage + lightweight index pointers for zero-CPU search.

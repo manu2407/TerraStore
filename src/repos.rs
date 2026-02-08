@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Repository Abstraction Layer
+//! Terra Store v1.0 - Repository Abstraction Layer
 //!
 //! This module defines the `Repository` trait and implementations for
 //! Pacman (Official repos) and Paru (AUR).

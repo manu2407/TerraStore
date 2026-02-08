@@ -1,6 +1,6 @@
 [package]
 name = "terra_store"
-version = "3.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Manu <manu2407@github>"]
 description = "A native TUI package manager for Arch Linux with fuzzy search and AUR support"

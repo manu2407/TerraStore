@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Flatpak Universal Module
+//! Terra Store v1.0 - Flatpak Universal Module
 //!
 //! Lazy-loaded Flatpak support via AppStream XML parsing.
 //! Only loads when user explicitly requests Universal mode.

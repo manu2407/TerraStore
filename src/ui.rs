@@ -1,4 +1,4 @@
-//! Terra Store v3.1 - Terminal User Interface
+//! Terra Store v1.0 - Terminal User Interface
 //!
 //! Split-pane TUI with instant search powered by Arena-based indexing.
 //! Includes History, Audit (with TerraFlow feature), and Universal (Flatpak) modes.

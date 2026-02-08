@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Authentication Module
+//! Terra Store v1.0 - Authentication Module
 //!
 //! The "Gatekeeper" - Handles sudo privilege management with a background
 //! keep-alive thread to prevent timeout during package browsing.

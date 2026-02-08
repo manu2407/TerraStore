@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Installation History
+//! Terra Store v1.0 - Installation History
 //!
 //! Tracks package installations for rollback and audit purposes.
 

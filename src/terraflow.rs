@@ -1,4 +1,4 @@
-//! Terra Store v3.1 - TerraFlow Config Sync
+//! Terra Store v1.0 - TerraFlow Config Sync
 //!
 //! Optional integration for auditing system packages against dotfiles package lists.
 //! Provides "what's missing" and "what's extra" reports.

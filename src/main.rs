@@ -1,4 +1,4 @@
-//! Terra Store v3.1 - Main Entry Point
+//! Terra Store v1.0 - Main Entry Point
 //!
 //! A native TUI package manager for Arch Linux.
 //! Features Zero-Stress indexing for instant package search.

@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Package Data Structures
+//! Terra Store v1.0 - Package Data Structures
 //!
 //! This module defines the core data types for representing packages
 //! and their metadata across different repository sources.

@@ -1,4 +1,4 @@
-//! Terra Store v3.0 - Pywal Theme Integration
+//! Terra Store v1.0 - Pywal Theme Integration
 //!
 //! Loads color schemes from ~/.cache/wal/colors.json for dynamic theming.
 
