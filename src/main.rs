@@ -1,6 +1,6 @@
-//! Terra Store v3.0 - Main Entry Point
+//! Terra Store v3.1 - Main Entry Point
 //!
-//! The "Metamorphosis" build - A native TUI package manager for Arch Linux.
+//! A native TUI package manager for Arch Linux.
 //! Features Zero-Stress indexing for instant package search.
 
 mod auth;
@@ -9,6 +9,7 @@ mod flatpak;
 mod history;
 mod package;
 mod repos;
+#[cfg(feature = "terraflow")]
 mod terraflow;
 mod theme;
 mod ui;
@@ -20,6 +21,7 @@ use auth::AuthManager;
 use history::History;
 use package::PackageSource;
 use repos::Repository;
+#[cfg(feature = "terraflow")]
 use terraflow::TerraFlow;
 use ui::{draw, handle_input, init_terminal, restore_terminal, App, AppMode};
 
@@ -84,13 +86,16 @@ fn run_tui(auth: &mut AuthManager) -> io::Result<()> {
     // Load installation history
     app.history = History::load();
 
-    // Try to auto-detect TerraFlow config
-    app.terraflow = TerraFlow::auto_detect();
-    if app.terraflow.is_some() {
-        app.status = format!(
-            "{} | TerraFlow detected",
-            app.status
-        );
+    // Try to auto-detect TerraFlow config (if feature enabled)
+    #[cfg(feature = "terraflow")]
+    {
+        app.terraflow = TerraFlow::auto_detect();
+        if app.terraflow.is_some() {
+            app.status = format!(
+                "{} | TerraFlow detected",
+                app.status
+            );
+        }
     }
 
     // Main event loop

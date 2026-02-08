@@ -1,7 +1,12 @@
-//! Terra Store v3.0 - TerraFlow Config Sync
+//! Terra Store v3.1 - TerraFlow Config Sync
 //!
-//! Audits system packages against dotfiles package lists.
+//! Optional integration for auditing system packages against dotfiles package lists.
 //! Provides "what's missing" and "what's extra" reports.
+//!
+//! # Configuration
+//!
+//! Set `TERRA_PACKAGES_DIR` environment variable to specify your packages directory,
+//! or place package lists in one of the auto-detected locations.
 
 use std::collections::HashSet;
 use std::fs;
@@ -45,15 +50,32 @@ impl TerraFlow {
         }
     }
 
-    /// Auto-detect packages directory in common locations
+    /// Auto-detect packages directory.
+    ///
+    /// Checks in order:
+    /// 1. `TERRA_PACKAGES_DIR` environment variable
+    /// 2. `~/.config/terra-store/packages` (XDG-compliant)
+    /// 3. Common dotfiles locations
     pub fn auto_detect() -> Option<Self> {
-        // Check common dotfiles locations
+        // 1. Check environment variable first (highest priority)
+        if let Ok(path_str) = std::env::var("TERRA_PACKAGES_DIR") {
+            let path = PathBuf::from(path_str);
+            if path.is_dir() {
+                return Some(Self::new(path));
+            }
+        }
+
         let home = dirs::home_dir()?;
-        
+
+        // 2. Check standard locations in order of preference
         let candidates = [
+            // XDG-compliant location
+            home.join(".config/terra-store/packages"),
+            // Common dotfiles locations
             home.join("TerraFlow-Dotfiles/packages"),
             home.join(".dotfiles/packages"),
             home.join("dotfiles/packages"),
+            // Legacy location
             home.join(".config/terraflow/packages"),
         ];
 

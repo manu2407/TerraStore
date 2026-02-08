@@ -1,7 +1,7 @@
-//! Terra Store v3.0 - Terminal User Interface
+//! Terra Store v3.1 - Terminal User Interface
 //!
 //! Split-pane TUI with instant search powered by Arena-based indexing.
-//! Includes History, Audit, and Universal (Flatpak) modes.
+//! Includes History, Audit (with TerraFlow feature), and Universal (Flatpak) modes.
 
 use std::io::{self, Stdout};
 use std::time::{Duration, Instant};
@@ -25,6 +25,7 @@ use crate::flatpak::FlatpakDatabase;
 use crate::history::History;
 use crate::package::PackageSource;
 use crate::repos::RepoManager;
+#[cfg(feature = "terraflow")]
 use crate::terraflow::{AuditResult, TerraFlow};
 use crate::theme::Theme;
 
@@ -37,6 +38,7 @@ pub enum AppMode {
     Search,
     Universal,  // Flatpak search
     History,
+    #[cfg(feature = "terraflow")]
     Audit,
 }
 
@@ -63,8 +65,10 @@ pub struct App {
     /// Installation history
     pub history: History,
     /// TerraFlow config (if detected)
+    #[cfg(feature = "terraflow")]
     pub terraflow: Option<TerraFlow>,
     /// Audit results (cached)
+    #[cfg(feature = "terraflow")]
     pub audit_result: Option<AuditResult>,
     /// Flatpak database (lazy loaded)
     pub flatpak: FlatpakDatabase,
@@ -127,7 +131,9 @@ impl App {
             database: PackageDatabase::new(),
             repo_manager,
             history: History::default(),
+            #[cfg(feature = "terraflow")]
             terraflow: None,
+            #[cfg(feature = "terraflow")]
             audit_result: None,
             flatpak: FlatpakDatabase::new(),
             flatpak_results: Vec::new(),
@@ -185,6 +191,7 @@ impl App {
     }
 
     /// Run TerraFlow audit
+    #[cfg(feature = "terraflow")]
     pub fn run_audit(&mut self) {
         if let Some(ref tf) = self.terraflow {
             self.status = String::from("Running audit...");
@@ -221,6 +228,7 @@ impl App {
                     self.history.failure_count()
                 );
             }
+            #[cfg(feature = "terraflow")]
             AppMode::Audit => {
                 self.run_audit();
             }
@@ -279,6 +287,7 @@ impl App {
             AppMode::Search => self.results.len(),
             AppMode::Universal => self.flatpak.search(&self.query, MAX_DISPLAY_RESULTS).len(),
             AppMode::History => self.history.records.len(),
+            #[cfg(feature = "terraflow")]
             AppMode::Audit => self.audit_result.as_ref().map(|r| r.missing.len()).unwrap_or(0),
         };
         if len == 0 {
@@ -293,6 +302,7 @@ impl App {
             AppMode::Search => self.results.len(),
             AppMode::Universal => self.flatpak.search(&self.query, MAX_DISPLAY_RESULTS).len(),
             AppMode::History => self.history.records.len(),
+            #[cfg(feature = "terraflow")]
             AppMode::Audit => self.audit_result.as_ref().map(|r| r.missing.len()).unwrap_or(0),
         };
         if len == 0 {
@@ -312,6 +322,7 @@ impl App {
             AppMode::Search => self.results.len(),
             AppMode::Universal => self.flatpak.search(&self.query, MAX_DISPLAY_RESULTS).len(),
             AppMode::History => self.history.records.len(),
+            #[cfg(feature = "terraflow")]
             AppMode::Audit => self.audit_result.as_ref().map(|r| r.missing.len()).unwrap_or(0),
         };
         self.selected = (self.selected + 10).min(len.saturating_sub(1));
@@ -400,6 +411,7 @@ pub fn draw(frame: &mut Frame, app: &mut App) {
             draw_history_list(frame, content_chunks[0], app);
             draw_history_detail(frame, content_chunks[1], app);
         }
+        #[cfg(feature = "terraflow")]
         AppMode::Audit => {
             draw_audit_list(frame, content_chunks[0], app);
             draw_audit_detail(frame, content_chunks[1], app);
@@ -416,6 +428,7 @@ fn draw_header(frame: &mut Frame, area: Rect, app: &App) {
         AppMode::Search => format!("SEARCH | {}", app.source_filter.label()),
         AppMode::Universal => "UNIVERSAL (Flatpak)".to_string(),
         AppMode::History => "HISTORY".to_string(),
+        #[cfg(feature = "terraflow")]
         AppMode::Audit => "AUDIT".to_string(),
     };
 
@@ -741,6 +754,7 @@ fn draw_history_detail(frame: &mut Frame, area: Rect, app: &App) {
     frame.render_widget(preview, area);
 }
 
+#[cfg(feature = "terraflow")]
 fn draw_audit_list(frame: &mut Frame, area: Rect, app: &mut App) {
     let theme = &app.theme;
 
@@ -780,6 +794,7 @@ fn draw_audit_list(frame: &mut Frame, area: Rect, app: &mut App) {
     frame.render_stateful_widget(list, area, &mut app.list_state);
 }
 
+#[cfg(feature = "terraflow")]
 fn draw_audit_detail(frame: &mut Frame, area: Rect, app: &App) {
     let theme = &app.theme;
 
@@ -862,7 +877,16 @@ fn draw_footer(frame: &mut Frame, area: Rect, app: &App) {
             Span::styled("Esc", Style::default().fg(theme.accent)),
             Span::styled(" Quit", Style::default().fg(theme.muted)),
         ],
-        AppMode::History | AppMode::Audit => vec![
+        AppMode::History => vec![
+            Span::styled(" ↑↓", Style::default().fg(theme.accent)),
+            Span::styled(" Nav ", Style::default().fg(theme.muted)),
+            Span::styled("1-3", Style::default().fg(theme.accent)),
+            Span::styled(" Mode ", Style::default().fg(theme.muted)),
+            Span::styled("Esc", Style::default().fg(theme.accent)),
+            Span::styled(" Quit", Style::default().fg(theme.muted)),
+        ],
+        #[cfg(feature = "terraflow")]
+        AppMode::Audit => vec![
             Span::styled(" ↑↓", Style::default().fg(theme.accent)),
             Span::styled(" Nav ", Style::default().fg(theme.muted)),
             Span::styled("1-3", Style::default().fg(theme.accent)),
@@ -907,6 +931,7 @@ pub fn handle_input(app: &mut App) -> io::Result<bool> {
                 KeyCode::Char('1') => app.set_mode(AppMode::Search),
                 KeyCode::F(2) => app.set_mode(AppMode::Universal),
                 KeyCode::Char('2') => app.set_mode(AppMode::History),
+                #[cfg(feature = "terraflow")]
                 KeyCode::Char('3') => app.set_mode(AppMode::Audit),
                 KeyCode::Up => app.select_previous(),
                 KeyCode::Down => app.select_next(),

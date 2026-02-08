@@ -1,11 +1,18 @@
 [package]
 name = "terra_store"
-version = "3.0.0"
+version = "3.1.0"
 edition = "2021"
-authors = ["TerraFlow"]
-description = "A native TUI package manager for Arch Linux"
+authors = ["Manu <manu2407@github>"]
+description = "A native TUI package manager for Arch Linux with fuzzy search and AUR support"
 license = "MIT"
-repository = "https://github.com/manu2407/TerraFlow-Dotfiles"
+repository = "https://github.com/manu2407/TerraStore"
+readme = "README.md"
+keywords = ["arch", "tui", "package-manager", "pacman", "aur"]
+categories = ["command-line-utilities"]
+
+[features]
+default = ["terraflow"]
+terraflow = []  # Optional TerraFlow dotfiles integration
 
 [dependencies]
 # TUI Framework
